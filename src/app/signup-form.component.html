@@ -1,0 +1,121 @@
+
+<hr/>
+<input type="checkbox" (change)="showContact()" class="form-control" />
+
+<div *ngIf="showContactForm">
+<form class="form-group" #formName formName="ngForm" [formGroup]="frmBuilder" (ngSubmit)="submut(formName)">
+<h1>Set up contact </h1>
+    <label>phone Number</label>
+    <ul *ngFor="let k of otherPhones().controls">
+        <li style="color:green">{{k.value}}</li>
+    </ul>
+    <input (blur)="addOtherPhones(phone)" #phone type="text" formControlName="phone" class="form-control"/>
+     <label>Email Address</label>
+    <input type="text" formControlName="email" class="form-control"/>
+    <hr/>
+    <p>contacts</p>
+    <label>Address Line 1</label>
+    <input type="text" formGroupName="contact" formControlName="address" class="form-control"/>
+    <label>Address Line 1</label>
+    <input type="text" formGroupName="contact" formControlName="address2" class="form-control"/>
+    <label>City</label>
+    <input type="text" formGroupName="contact" formControlName="city" class="form-control"/>
+    <label>State</label>
+    <input type="text" formGroupName="contact" formControlName="state" class="form-control"/>
+    <label>Country</label>
+    <input type="text" formGroupName="contact" formControlName="country" class="form-control"/>
+    <input type="submit" value="submit details" />
+</form>
+
+</div>
+
+<form [formGroup]="formy" (ngSubmit)="makeError()">
+    <div class="alert alert-danger" *ngIf="formy.errors">
+        <div *ngIf="formy.errors.isNotValid">
+            Form is Invalid
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="username">Username</label>
+        <input (blur)="addUsernameTopic(usernametopic)" #usernametopic  formControlName="username" id="username" type="text" class="form-control" />
+        <ul class="list-group" *ngFor="let k of userNameTp().controls">
+            <li (click)="removeFrom(k)" class="list-group-item">
+            {{k.value}}
+            </li>
+        </ul>
+        <div *ngIf="username.pending">
+        Checking for uniqeness...
+        </div>
+        <div *ngIf="username.touched && username.invalid">
+
+            <div style="color:red" *ngIf="username.errors.required">
+            Username is Required
+            </div>
+            <div style="color:red" *ngIf="username.errors.minlength">
+                minimum length is {{username.errors.minlength.requiredLength}}
+            </div>
+            <div style="color:red" *ngIf="username.errors.maxlength">
+                    maximum length is {{username.errors.maxlength.requiredLength}}
+            </div>
+            <div style="color:red" *ngIf="username.errors.noVowels">
+                    username cannot contain vowels
+            </div>
+            <div  style="color:red" *ngIf="username.errors.NoSpace">
+                UserName cannot contain space
+            </div>
+            
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input formControlName="password" id="password" type="text" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="email">Email Address</label>
+        <input formControlName="email" type="text" class="form-control" />
+         <input type="button"  (click)="AddAlternateEmail()" value="Add Alternate Email" class="btn btn-primary" />
+            <div *ngIf="isNewEmail" formGroupName="otherDetails">
+            <label for="alternateemail">Alternate Email Address</label>
+                <input type="email" class="form-control" formControlName="otherDetails.alternativeEmail" />
+                <div *ngIf="formy.get('otherDetails.alternativeEmail').errors.required">
+                    ALternate Email is Required
+                </div>
+            </div>
+    </div>
+    <div>
+        <label for="phone">Phone Number</label>
+        <input (keyup)="AddNewPhone" formControlName="phone" type="text" class="form-control" />
+        <input (click)="AddNewPhone()" type="button" value="Add New Phone" class="btn btn-primary" />
+        <hr/>
+        <div *ngIf="isNewField && otherDetails.length > 0">
+            <table>
+                <tbody *ngFor="let k of otherDetails">
+                <tr>
+                    <td>
+                    <label for="k">Add Phone </label>
+                    <input type="text" formControlName="k" class="form-control" />
+
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+     
+        </div>
+    </div>
+    <hr/>
+    
+<!--
+    <input type="checkbox" name="newfield" (check)="switchField(!isNewField)" />
+     <div class="form-group" *ngIf="!isNewField"> 
+        <input type="text" (blur)="setField(fieldname.value)" ngModel #fieldname="ngModel" name="fieldname" required />
+        <span *ngIf="!fieldname.valid">FieldName is Required</span>
+        <input type="button" class="btn btn-warning" [disabled]="!fieldname.valid" value="Add New Field" />
+    </div>
+
+    -->
+        
+    
+    <hr/>
+    <button [ngStyle]="isFormDisplayable()" class="btn btn-primary" type="submit">Sign Up</button>
+</form>

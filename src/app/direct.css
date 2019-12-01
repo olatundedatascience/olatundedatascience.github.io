@@ -1,0 +1,10 @@
+.focusElement {
+    border:"3px solid red";
+    background-color:"green"
+}
+
+
+.form-control.ng-pristine.ng-touched.ng-invalid {
+    border:2px solid red;
+  }
+ 

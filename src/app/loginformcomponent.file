@@ -1,0 +1,32 @@
+/*
+    <label>Select Contact Method</label>
+    <select class="form-control" name="contact" ngModel required #contact="ngModel">
+        <option selected value="">Please Select </option>
+        <option *ngFor="let k of contactMethod" [value]="k.id">{{k.name}}</option>
+
+    </select>
+    <hr/>
+    <div>
+        <label>Gender</label>
+        <div class="form-group">
+            <div class="form-group">
+                <label>Male</label>
+                <input class="form-control" type="radio" name="gender" value="1" />
+            </div>
+
+            <div class="form-group">
+                <label>Female</label>
+                <input class="form-control" type="radio" name="gender" value="2" />
+            </div>
+            
+            
+        </div>
+    </div>
+    <div ngModelGroup="future" #future>
+    <label>remember Me</label>
+        <input required class="form-control" #remember="ngModel" type="checkbox" name="remember" ngModel />
+        <span style="color:red" *ngIf=" remember.touched && !remember.valid && remember.errors.required">Please Select </span>
+    </div>
+
+    {{login.value | json }}
+*/

@@ -1,0 +1,11 @@
+.active {
+    background-color:"red";
+  }
+  .inactive {
+    background-color:"yellow"
+  }
+
+  .form-control.ng-pristine.ng-touched.ng-invalid {
+    border:2px solid red;
+  }
+ 

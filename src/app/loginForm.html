@@ -1,0 +1,31 @@
+<form #login="ngForm" ngForm name="login"  class="form-control">
+    <div *ngIf="!login.valid" style="color:red;">
+            <h3>Please review the following </h3>
+        <ul *ngFor="let k of login.errors">
+            <li>{{k}}</li>
+        </ul>
+    </div>
+
+    <div *ngIf="isInvalidLogin">
+        <span style="color:red">Invalid username or password </span>
+    </div>
+    <div ngModelGroup="userlogin" #userlogin>
+        <label>UserName</label>
+        <input required minlength="3" class="form-control" ngModel type="text" name="username" #username="ngModel" />
+        <div *ngIf="username.touched && !username.valid">
+            <span *ngIf="username.errors.required">username is required</span>
+        </div>
+
+        <hr/>
+        <label>Password</label>
+        <input minlength="3" (blur)="logme(password)" required class="form-control" #password="ngModel" type="password" required name="password" ngModel />
+        <div *ngIf="password.touched && !password.valid">
+            <span style="color:red" *ngIf="password.errors.required">Password is required</span>
+            <span style="color:red" *ngIf="password.errors.minlength">minimum length is 3</span>
+        </div>
+
+    </div>
+    <hr/>
+    
+    <input class="btn btn-primary" type="submit"  (click)="LoginMe(username.value, password.value)" value="Login" [disabled]="isSent" />
+</form>
